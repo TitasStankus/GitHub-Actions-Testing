@@ -1,0 +1,17 @@
+name: Push commit
+on: 
+  push:
+jobs:
+  report:
+    runs-on: ubuntu-22.04-arm
+    permissions:
+      contents: read
+      packages: write
+    steps:
+    - name: Commit report
+      run: |       
+        git config --global user.name 'RPI WiFi Controller Auto-Build'
+        git config --global user.email 'action@github.com'
+        git add target.tar.gz || exit 0
+        git commit -am "automated: build action" || exit 0
+        git push
